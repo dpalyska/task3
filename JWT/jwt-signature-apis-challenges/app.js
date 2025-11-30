@@ -9,7 +9,7 @@ const { exec } = require('child_process');
 const app = express();
 app.use(express.json()); //midleware needed to handle post request
 
-//Environment: Disable unauthorized x509 certificates. 
+//Environment: Disable unauthorized x509 certificates.
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 //JWT payload
@@ -31,7 +31,7 @@ app.post('/jwt/none', (req, res) => { //None endpoint
     } else if (jwt_b64_dec.header.alg == 'none') {
       secret_key = '';
     }
-    JWT.verify(jwt_token, secret_key, { algorithms: ['none', 'HS256'], complete: true, audience: 'https://127.0.0.1/jwt/none' }, (err, decoded_token) => {
+    JWT.verify(jwt_token, secret_key, { algorithms: ['HS256'], complete: true, audience: 'https://127.0.0.1/jwt/none' }, (err, decoded_token) => {
       if (err) {
         res.status(400).json(err);
       } else {
